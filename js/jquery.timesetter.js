@@ -11,28 +11,30 @@
  * https://github.com/sandunangelo/jquery-timesetter
  */
 
-(function ($)
-{
+(function ($) {
     /**
 	 * Support function to construct string with padded with a given character to the left side.
 	 */
-    function padLeft(value, l, c)
-    {
+    function padLeft(value, l, c) {
         return Array(l - value.toString().length + 1).join(c || " ") + value.toString();
     };
 
     /**
      * Initialize all the time setter controls in the document.
      */
-    $.fn.timesetter = function (options)
-    {
+    $.fn.timesetter = function (options) {
         var wrapper = $(this);
-        if (wrapper.find(".divTimeSetterContainer").length !== 1)
-        {
-            wrapper.html(htmlTemplate);
+        saveOptions(container, options);
+
+        if (wrapper.find(".divTimeSetterContainer").length !== 1) {
+            if ($.fn.settings.ui2) {
+                wrapper.html(htmlTemplate2);
+            } else {
+                wrapper.html(htmlTemplate);
+            }
+
         }
         var container = wrapper.find(".divTimeSetterContainer");
-        saveOptions(container, options);
 
         var btnUp = container.find('.btnUp');
         var btnDown = container.find('.btnDown');
@@ -51,22 +53,18 @@
         txtMinutes.unbind('keydown').bind('keydown', function (event) { updateTimeValueByArrowKeys(this, event); });
 
         // apply formatting for input fields
-        $(container).find("input[type=text]").each(function ()
-        {
-            $(this).change(function (e)
-            {
+        $(container).find("input[type=text]").each(function () {
+            $(this).change(function (e) {
                 formatInput(e);
             });
         });
 
         // set default values
-        if (txtHours.val().length === 0)
-        {
+        if (txtHours.val().length === 0) {
             txtHours.val(padLeft($.fn.settings.hour.min.toString(), getMaxLength($.fn.settings.hour), $.fn.settings.numberPaddingChar));
         }
 
-        if (txtMinutes.val().length === 0)
-        {
+        if (txtMinutes.val().length === 0) {
             txtMinutes.val(padLeft($.fn.settings.minute.min.toString(), getMaxLength($.fn.settings.minute), $.fn.settings.numberPaddingChar));
         }
 
@@ -84,8 +82,7 @@
     /**
      * Capture the time unit which is about to update from events.
      */
-    function unitChanged(sender)
-    {
+    function unitChanged(sender) {
         var container = $(sender).parents(".divTimeSetterContainer");
         loadOptions(container);
 
@@ -100,10 +97,14 @@
     /**
      * Change the time setter values from UI events.
      */
-    function updateTimeValue(sender)
-    {
+    function updateTimeValue(sender) {
         var container = $(sender).parents(".divTimeSetterContainer");
         loadOptions(container);
+
+        if ($.fn.settings.ui2) {
+            //takes unit for particular buttons
+            unit = $(sender).data("unit");
+        }
 
         $.fn.settings.inputHourTextbox = container.find('.txtHours');
         $.fn.settings.inputMinuteTextbox = container.find('.txtMinutes');
@@ -114,49 +115,40 @@
         $.fn.settings.direction = $(sender).data("direction");
 
         // validate hour and minute values
-        if (isNaN($.fn.settings.hour.value))
-        {
+        if (isNaN($.fn.settings.hour.value)) {
             $.fn.settings.hour.value = $.fn.settings.hour.min;
         }
 
-        if (isNaN($.fn.settings.minute.value))
-        {
+        if (isNaN($.fn.settings.minute.value)) {
             $.fn.settings.minute.value = $.fn.settings.minute.min;
         }
 
         // update time setter by changing hour value
-        if (unit === "hours")
-        {
+        if (unit === "hours") {
             var oldHourValue = parseInt($($.fn.settings.inputHourTextbox).val().trim());
             var newHourValue = 0;
 
-            if ($.fn.settings.direction === "decrement")
-            {
+            if ($.fn.settings.direction === "decrement") {
                 newHourValue = oldHourValue - $.fn.settings.hour.step;
 
                 // tolerate the wrong step number and move to a valid step
-                if ((newHourValue % $.fn.settings.hour.step) > 0)
-                {
+                if ((newHourValue % $.fn.settings.hour.step) > 0) {
                     newHourValue = (newHourValue - (newHourValue % $.fn.settings.hour.step)); // set to the previous adjacent step
                 }
 
-                if (newHourValue <= $.fn.settings.hour.min)
-                {
+                if (newHourValue <= $.fn.settings.hour.min) {
                     newHourValue = $.fn.settings.hour.min;
                 }
             }
-            else if ($.fn.settings.direction === "increment")
-            {
+            else if ($.fn.settings.direction === "increment") {
                 newHourValue = oldHourValue + $.fn.settings.hour.step;
 
                 // tolerate the wrong step number and move to a valid step
-                if ((newHourValue % $.fn.settings.hour.step) > 0)
-                {
+                if ((newHourValue % $.fn.settings.hour.step) > 0) {
                     newHourValue = (newHourValue - (newHourValue % $.fn.settings.hour.step)); // set to the previous adjacent step
                 }
 
-                if (newHourValue >= $.fn.settings.hour.max)
-                {
+                if (newHourValue >= $.fn.settings.hour.max) {
                     newHourValue = $.fn.settings.hour.max - $.fn.settings.hour.step;
                 }
             }
@@ -174,54 +166,45 @@
             var oldMinuteValue = $.fn.settings.minute.value;
             var newMinuteValue = oldMinuteValue;
 
-            if ($.fn.settings.direction === "decrement")
-            {
+            if ($.fn.settings.direction === "decrement") {
                 newMinuteValue = oldMinuteValue - $.fn.settings.minute.step;
 
                 // tolerate the wrong step number and move to a valid step
-                if ((newMinuteValue % $.fn.settings.minute.step) > 0)
-                {
+                if ((newMinuteValue % $.fn.settings.minute.step) > 0) {
                     newMinuteValue = (newMinuteValue - (newMinuteValue % $.fn.settings.minute.step)); // set to the previuos adjacent step
                 }
 
                 if (newHourValue <= $.fn.settings.hour.min &&
-                    oldMinuteValue <= $.fn.settings.minute.min)
-                {
+                    oldMinuteValue <= $.fn.settings.minute.min) {
                     newHourValue = $.fn.settings.hour.min;
                     newMinuteValue = $.fn.settings.minute.min;
                 }
             }
-            else if ($.fn.settings.direction === "increment")
-            {
+            else if ($.fn.settings.direction === "increment") {
                 newMinuteValue = oldMinuteValue + $.fn.settings.minute.step;
 
                 // tolerate the wrong step number and move to a valid step
-                if ((newMinuteValue % $.fn.settings.minute.step) > 0)
-                {
+                if ((newMinuteValue % $.fn.settings.minute.step) > 0) {
                     newMinuteValue = (newMinuteValue - (newMinuteValue % $.fn.settings.minute.step)); // set to the previous adjacent step
                 }
 
                 if (newHourValue >= ($.fn.settings.hour.max - $.fn.settings.hour.step) &&
-                    oldMinuteValue >= ($.fn.settings.minute.max - $.fn.settings.minute.step))
-                {
+                    oldMinuteValue >= ($.fn.settings.minute.max - $.fn.settings.minute.step)) {
                     newHourValue = $.fn.settings.hour.max - $.fn.settings.hour.step;
                     newMinuteValue = $.fn.settings.minute.max - $.fn.settings.minute.step;
                 }
             }
 
             // change the hour value when the minute value exceed its limits
-            if (newMinuteValue >= $.fn.settings.minute.max && newHourValue != $.fn.settings.hour.max && newMinuteValue)
-            {
+            if (newMinuteValue >= $.fn.settings.minute.max && newHourValue != $.fn.settings.hour.max && newMinuteValue) {
                 newMinuteValue = $.fn.settings.minute.min;
                 newHourValue = oldHourValue + $.fn.settings.hour.step;
             }
-            else if (newMinuteValue < $.fn.settings.minute.min && oldHourValue >= $.fn.settings.hour.step)
-            {
+            else if (newMinuteValue < $.fn.settings.minute.min && oldHourValue >= $.fn.settings.hour.step) {
                 newMinuteValue = $.fn.settings.minute.max - $.fn.settings.minute.step;
                 newHourValue = oldHourValue - $.fn.settings.hour.step;
             }
-            else if (newMinuteValue < $.fn.settings.minute.min && oldHourValue < $.fn.settings.hour.step)
-            {
+            else if (newMinuteValue < $.fn.settings.minute.min && oldHourValue < $.fn.settings.hour.step) {
                 newMinuteValue = $.fn.settings.minute.min;
                 newHourValue = $.fn.settings.hour.min;
             }
@@ -239,15 +222,13 @@
     /**
      * Change the time setter values from arrow up/down key events
      */
-    function updateTimeValueByArrowKeys(sender, event)
-    {
+    function updateTimeValueByArrowKeys(sender, event) {
         var container = $(sender).parents(".divTimeSetterContainer");
         loadOptions(container);
 
-        var senderUpBtn = $(container).find("#btnUp");
-        var senderDownBtn = $(container).find("#btnDown");
-        switch (event.which)
-        {
+        var senderUpBtn = $(container).find(".btnUp");
+        var senderDownBtn = $(container).find(".btnDown");
+        switch (event.which) {
             case 13: // return
                 break;
 
@@ -276,8 +257,7 @@
     /**
      * apply sanitization to the input value and apply corrections.
      */
-    function formatInput(e)
-    {
+    function formatInput(e) {
         var element = $(e.target);
 
         var container = $(element).parents(".divTimeSetterContainer");
@@ -285,17 +265,14 @@
 
         var unitSettings;
 
-        if (unit === "hours")
-        {
+        if (unit === "hours") {
             unitSettings = $.fn.settings.hour;
         }
-        else if (unit === "minutes")
-        {
+        else if (unit === "minutes") {
             unitSettings = $.fn.settings.minute;
         }
 
-        if (!$.isNumeric(element.val()))
-        {
+        if (!$.isNumeric(element.val())) {
             $(element).val(padLeft(unitSettings.min.toString(), getMaxLength(unitSettings), $.fn.settings.numberPaddingChar));
             return false;
         }
@@ -304,38 +281,32 @@
 
         // tolerate the wrong step number and move to a valid step
         // ex: user enter 20 while step is 15, auto correct to 15
-        if (value >= unitSettings.max)
-        {
+        if (value >= unitSettings.max) {
             value = unitSettings.max - unitSettings.step;
             $(element).val(padLeft(value.toString(), getMaxLength(unitSettings), $.fn.settings.numberPaddingChar));
             return false;
         }
-        else if (value <= unitSettings.min)
-        {
+        else if (value <= unitSettings.min) {
             $(element).val(padLeft(unitSettings.min.toString(), getMaxLength(unitSettings), $.fn.settings.numberPaddingChar));
             return false;
         }
-        else if (padLeft(value.toString(), getMaxLength(unitSettings), $.fn.settings.numberPaddingChar) !== $(element).val())
-        {
+        else if (padLeft(value.toString(), getMaxLength(unitSettings), $.fn.settings.numberPaddingChar) !== $(element).val()) {
             $(element).val(padLeft(value.toString(), getMaxLength(unitSettings), $.fn.settings.numberPaddingChar));
             return false;
         }
-        else if ((value % unitSettings.step) > 0)
-        {
+        else if ((value % unitSettings.step) > 0) {
             value = (value - (value % unitSettings.step)); // set to the previous adjacent step
             $(element).val(padLeft(value.toString(), getMaxLength(unitSettings), $.fn.settings.numberPaddingChar));
             return false;
         }
 
         //if the letter is not digit then display error and don't type anything
-        if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57))
-        {
+        if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
             //display error message
             return false;
         }
 
-        if (value >= Math.pow(10, getMaxLength(unitSettings)))
-        {
+        if (value >= Math.pow(10, getMaxLength(unitSettings))) {
             $(element).val(padLeft((Math.pow(10, getMaxLength(unitSettings)) - 1).toString(), getMaxLength(unitSettings), $.fn.settings.numberPaddingChar));
             return false;
         }
@@ -344,12 +315,10 @@
     /**
      * get the hour value from the control.
      */
-    $.fn.getHoursValue = function ()
-    {
+    $.fn.getHoursValue = function () {
         var container = $(this).find(".divTimeSetterContainer");
         var txtHour = $(container).find(".txtHours");
-        if ($.isNumeric(txtHour.val()))
-        {
+        if ($.isNumeric(txtHour.val())) {
             return parseInt(txtHour.val());
         }
         return $.fn.settings.hour.min;
@@ -358,12 +327,10 @@
     /**
      * get the minute value from the control.
      */
-    $.fn.getMinutesValue = function ()
-    {
+    $.fn.getMinutesValue = function () {
         var container = $(this).find(".divTimeSetterContainer");
         var txtMinute = $(container).find(".txtMinutes");
-        if ($.isNumeric(txtMinute.val()))
-        {
+        if ($.isNumeric(txtMinute.val())) {
             return parseInt(txtMinute.val());
         }
         return $.fn.settings.minute.min;
@@ -372,8 +339,7 @@
     /**
      * get the total number of minutes from the control.
      */
-    $.fn.getTotalMinutes = function ()
-    {
+    $.fn.getTotalMinutes = function () {
         var container = $(this).find(".divTimeSetterContainer");
         var txtHour = $(container).find(".txtHours");
         var txtMinute = $(container).find(".txtMinutes");
@@ -381,8 +347,7 @@
         var hourValue = 0;
         var minuteValue = 0;
 
-        if ($.isNumeric(txtHour.val()) && $.isNumeric(txtMinute.val()))
-        {
+        if ($.isNumeric(txtHour.val()) && $.isNumeric(txtMinute.val())) {
             hourValue = parseInt(txtHour.val());
             minuteValue = parseInt(txtMinute.val());
         }
@@ -392,8 +357,7 @@
     /**
      * get the postfix display text.
      */
-    $.fn.getPostfixText = function ()
-    {
+    $.fn.getPostfixText = function () {
         var container = $(this).find(".divTimeSetterContainer");
         return container.find(".postfix-position").text();
     };
@@ -401,18 +365,15 @@
     /**
      * set the hour value to the control.
      */
-    $.fn.setHour = function (hourValue)
-    {
+    $.fn.setHour = function (hourValue) {
         var container = $(this).find(".divTimeSetterContainer");
         loadOptions(container);
 
         var txtHours = $(container).find(".txtHours");
-        if ($.isNumeric(hourValue))
-        {
+        if ($.isNumeric(hourValue)) {
             txtHours.val(hourValue);
         }
-        else
-        {
+        else {
             txtHours.val(padLeft($.fn.settings.hour.min.toString(), getMaxLength($.fn.settings.hour), $.fn.settings.numberPaddingChar));
         }
         unit = "hours"
@@ -424,18 +385,15 @@
     /**
      * set the minute value to the control.
      */
-    $.fn.setMinute = function (minuteValue)
-    {
+    $.fn.setMinute = function (minuteValue) {
         var container = $(this).find(".divTimeSetterContainer");
         loadOptions(container);
 
         var txtMinute = $(container).find(".txtMinutes");
-        if ($.isNumeric(minuteValue))
-        {
+        if ($.isNumeric(minuteValue)) {
             txtMinute.val(minuteValue);
         }
-        else
-        {
+        else {
             txtMinute.val(padLeft($.fn.settings.minute.min.toString(), getMaxLength($.fn.settings.minute), $.fn.settings.numberPaddingChar));
         }
         unit = "minutes"
@@ -447,8 +405,7 @@
     /**
      * set the values by calculating based on total number of minutes by caller.
      */
-    $.fn.setValuesByTotalMinutes = function (totalMinutes)
-    {
+    $.fn.setValuesByTotalMinutes = function (totalMinutes) {
         var container = $(this).find(".divTimeSetterContainer");
         loadOptions(container);
 
@@ -459,8 +416,7 @@
         var minuteValue = 0;
 
         // total minutes must be less than total minutes per day
-        if (totalMinutes && totalMinutes > 0 && totalMinutes < (24 * 60))
-        {
+        if (totalMinutes && totalMinutes > 0 && totalMinutes < (24 * 60)) {
             minuteValue = (totalMinutes % 60);
             hourValue = ((totalMinutes - minuteValue) / 60);
         }
@@ -478,8 +434,7 @@
     /**
      * set the postfix display text.
      */
-    $.fn.setPostfixText = function (textValue)
-    {
+    $.fn.setPostfixText = function (textValue) {
         var container = $(this).find(".divTimeSetterContainer");
         container.find(".postfix-position").text(textValue);
         return this;
@@ -488,8 +443,7 @@
     /**
      * plugin default options for the element
      */
-    $.fn.getDefaultSettings = function ()
-    {
+    $.fn.getDefaultSettings = function () {
         return {
             hour: {
                 value: 0,
@@ -509,7 +463,8 @@
             inputHourTextbox: null, // hour textbox
             inputMinuteTextbox: null, // minutes textbox
             postfixText: "", // text to display after the input fields
-            numberPaddingChar: '0' // number left padding character ex: 00052
+            numberPaddingChar: '0', // number left padding character ex: 00052
+            ui2: true
         };
     };
 
@@ -526,22 +481,18 @@
     /**
      * get max length based on input field options max value.
      */
-    function getMaxLength(unitSettings)
-    {
+    function getMaxLength(unitSettings) {
         return unitSettings.max.toString().length;
     };
 
     /**
      * save the element options' values as a data value within the element.
      */
-    function saveOptions(container, options)
-    {
-        if (options)
-        {
+    function saveOptions(container, options) {
+        if (options) {
             $.fn.settings = $.extend($.fn.settings, options);
         }
-        else
-        {
+        else {
             $.fn.settings = $.fn.getDefaultSettings();
         }
         $(container).data('options', $.fn.settings);
@@ -551,15 +502,12 @@
     /**
      * load the element's option values saved as data values.
      */
-    function loadOptions(container)
-    {
+    function loadOptions(container) {
         var savedOptions = $(container).data('options');
-        if (savedOptions)
-        {
+        if (savedOptions) {
             $.fn.settings = $.extend($.fn.settings, $(container).data('options'));
         }
-        else
-        {
+        else {
             $.fn.settings = $.fn.getDefaultSettings();
         }
         return $.fn.settings;
@@ -569,24 +517,57 @@
      * plugin UI html template
      */
     var htmlTemplate =
-	'<div class="divTimeSetterContainer">' +
-		'<div class="timeValueBorder">' +
-			'<input type="text" class="timePart hours txtHours" data-unit="hours" autocomplete="off" />' +
-			'<span class="hourSymbol"></span>' +
-			'<span class="timeDelimiter">:</span>' +
-			'<input type="text" class="timePart minutes txtMinutes" data-unit="minutes" autocomplete="off" />' +
-			'<span class="minuteSymbol"></span>' +
-			'<div class="button-time-control">' +
-				'<div type="button" data-direction="increment" class="updownButton btnUp">' +
-					'<i class="glyphicon glyphicon-triangle-top"></i>' +
-				'</div>' +
-				'<div type="button" data-direction="decrement" class="updownButton btnDown">' +
-					'<i class="glyphicon glyphicon-triangle-bottom"></i>' +
-				'</div>' +
-			'</div>' +
-		'</div>' +
+        '<div class="divTimeSetterContainer">' +
+            '<div class="timeValueBorder">' +
+                '<input type="text" class="timePart hours txtHours" data-unit="hours" autocomplete="off" />' +
+                '<span class="hourSymbol"></span>' +
+                '<span class="timeDelimiter">:</span>' +
+                '<input type="text" class="timePart minutes txtMinutes" data-unit="minutes" autocomplete="off" />' +
+                '<span class="minuteSymbol"></span>' +
+                '<div class="button-time-control">' +
+                    '<div type="button" data-direction="increment" class="updownButton btnUp">' +
+                        '<i class="glyphicon glyphicon-triangle-top"></i>' +
+                    '</div>' +
+                    '<div type="button" data-direction="decrement" class="updownButton btnDown">' +
+                        '<i class="glyphicon glyphicon-triangle-bottom"></i>' +
+                    '</div>' +
+                '</div>' +
+             '</div>' +
         '<label class="postfix-position"></label>' +
-	'</div>';
+        '</div>';
+
+    /**
+     * plugin UI html template
+     */
+    var htmlTemplate2 =
+        '<div class="divTimeSetterContainer">' +
+        '<div class="timeValueBorder">' +
+        '<input type="text" class="timePart hours txtHours" data-unit="hours" autocomplete="off">' +
+        '<span class="hourSymbol">hrs</span>' +
+        '<div class="button-time-control">' +
+        '<div type="button" data-direction="increment" class="updownButton btnUp" data-unit="hours">' +
+        '<i class="glyphicon glyphicon-triangle-top"></i>' +
+        '</div>' +
+        '<div type="button" data-direction="decrement" class="updownButton btnDown" data-unit="hours">' +
+        '<i class="glyphicon glyphicon-triangle-bottom"></i>' +
+        ' </div>' +
+        '</div>' +
+        '</div>' +
+        '<span class="timeDelimiter2">&nbsp;</span>' +
+        '<div class="timeValueBorder">' +
+        '<input type="text" class="timePart minutes2 txtMinutes" data-unit="minutes" autocomplete="off">' +
+        '<span class="minuteSymbol">mins</span>' +
+        '<div class="button-time-control">' +
+        '<div type="button" data-direction="increment" class="updownButton btnUp" data-unit="minutes">' +
+        '<i class="glyphicon glyphicon-triangle-top"></i>' +
+        '</div>' +
+        '<div type="button" data-direction="decrement" class="updownButton btnDown" data-unit="minutes">' +
+        '<i class="glyphicon glyphicon-triangle-bottom"></i>' +
+        '</div>' +
+        '</div>' +
+        '</div>' +
+        '<label class="postfix-position"></label>' +
+        '</div>';
 
 }(jQuery));
 

@@ -26,11 +26,16 @@
      */
     $.fn.timesetter = function (options) {
         var wrapper = $(this);
+        saveOptions(container, options);
+
         if (wrapper.find(".divTimeSetterContainer").length !== 1) {
-            wrapper.html(htmlTemplate);
+            if ($.fn.settings.ui2) {
+                wrapper.html(htmlTemplate2);
+            } else {
+                wrapper.html(htmlTemplate);
+            }
         }
         var container = wrapper.find(".divTimeSetterContainer");
-        saveOptions(container, options);
 
         var btnUp = container.find('.btnUp');
         var btnDown = container.find('.btnDown');
@@ -108,6 +113,11 @@
     function updateTimeValue(sender) {
         var container = $(sender).parents(".divTimeSetterContainer");
         loadOptions(container);
+
+        if ($.fn.settings.ui2) {
+            //takes unit for particular buttons
+            unit = $(sender).data("unit");
+        }
 
         $.fn.settings.inputHourTextbox = container.find('.txtHours');
         $.fn.settings.inputMinuteTextbox = container.find('.txtMinutes');
@@ -222,8 +232,8 @@
         var container = $(sender).parents(".divTimeSetterContainer");
         loadOptions(container);
 
-        var senderUpBtn = $(container).find("#btnUp");
-        var senderDownBtn = $(container).find("#btnDown");
+        var senderUpBtn = $(container).find(".btnUp");
+        var senderDownBtn = $(container).find(".btnDown");
         switch (event.which) {
             case 13:
                 // return
@@ -459,7 +469,8 @@
             inputHourTextbox: null, // hour textbox
             inputMinuteTextbox: null, // minutes textbox
             postfixText: "", // text to display after the input fields
-            numberPaddingChar: '0' // number left padding character ex: 00052
+            numberPaddingChar: '0', // number left padding character ex: 00052
+            ui2: true
         };
     };
 
@@ -510,5 +521,10 @@
      * plugin UI html template
      */
     var htmlTemplate = '<div class="divTimeSetterContainer">' + '<div class="timeValueBorder">' + '<input type="text" class="timePart hours txtHours" data-unit="hours" autocomplete="off" />' + '<span class="hourSymbol"></span>' + '<span class="timeDelimiter">:</span>' + '<input type="text" class="timePart minutes txtMinutes" data-unit="minutes" autocomplete="off" />' + '<span class="minuteSymbol"></span>' + '<div class="button-time-control">' + '<div type="button" data-direction="increment" class="updownButton btnUp">' + '<i class="glyphicon glyphicon-triangle-top"></i>' + '</div>' + '<div type="button" data-direction="decrement" class="updownButton btnDown">' + '<i class="glyphicon glyphicon-triangle-bottom"></i>' + '</div>' + '</div>' + '</div>' + '<label class="postfix-position"></label>' + '</div>';
+
+    /**
+     * plugin UI html template
+     */
+    var htmlTemplate2 = '<div class="divTimeSetterContainer">' + '<div class="timeValueBorder">' + '<input type="text" class="timePart hours txtHours" data-unit="hours" autocomplete="off">' + '<span class="hourSymbol">hrs</span>' + '<div class="button-time-control">' + '<div type="button" data-direction="increment" class="updownButton btnUp" data-unit="hours">' + '<i class="glyphicon glyphicon-triangle-top"></i>' + '</div>' + '<div type="button" data-direction="decrement" class="updownButton btnDown" data-unit="hours">' + '<i class="glyphicon glyphicon-triangle-bottom"></i>' + ' </div>' + '</div>' + '</div>' + '<span class="timeDelimiter2">&nbsp;</span>' + '<div class="timeValueBorder">' + '<input type="text" class="timePart minutes2 txtMinutes" data-unit="minutes" autocomplete="off">' + '<span class="minuteSymbol">mins</span>' + '<div class="button-time-control">' + '<div type="button" data-direction="increment" class="updownButton btnUp" data-unit="minutes">' + '<i class="glyphicon glyphicon-triangle-top"></i>' + '</div>' + '<div type="button" data-direction="decrement" class="updownButton btnDown" data-unit="minutes">' + '<i class="glyphicon glyphicon-triangle-bottom"></i>' + '</div>' + '</div>' + '</div>' + '<label class="postfix-position"></label>' + '</div>';
 })(jQuery);
 
