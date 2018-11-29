@@ -32,8 +32,8 @@
         var container = wrapper.find(".divTimeSetterContainer");
         saveOptions(container, options);
 
-        var btnUp = container.find('#btnUp');
-        var btnDown = container.find('#btnDown');
+        var btnUp = container.find('.btnUp');
+        var btnDown = container.find('.btnDown');
 
         // binding events
         btnUp.unbind('click').bind('click', function (event) {
@@ -43,8 +43,8 @@
             updateTimeValue(this, event);
         });
 
-        var txtHours = container.find('#txtHours');
-        var txtMinutes = container.find('#txtMinutes');
+        var txtHours = container.find('.txtHours');
+        var txtMinutes = container.find('.txtMinutes');
 
         txtHours.unbind('focusin').bind('focusin', function (event) {
             $(this).select();unitChanged(this, event);
@@ -96,8 +96,8 @@
 
         unit = $(sender).data("unit");
 
-        $.fn.settings.inputHourTextbox = container.find('#txtHours');
-        $.fn.settings.inputMinuteTextbox = container.find('#txtMinutes');
+        $.fn.settings.inputHourTextbox = container.find('.txtHours');
+        $.fn.settings.inputMinuteTextbox = container.find('.txtMinutes');
 
         saveOptions(container, $.fn.settings);
     };
@@ -109,8 +109,8 @@
         var container = $(sender).parents(".divTimeSetterContainer");
         loadOptions(container);
 
-        $.fn.settings.inputHourTextbox = container.find('#txtHours');
-        $.fn.settings.inputMinuteTextbox = container.find('#txtMinutes');
+        $.fn.settings.inputHourTextbox = container.find('.txtHours');
+        $.fn.settings.inputMinuteTextbox = container.find('.txtMinutes');
 
         $.fn.settings.hour.value = parseInt($.fn.settings.inputHourTextbox.val());
         $.fn.settings.minute.value = parseInt($.fn.settings.inputMinuteTextbox.val());
@@ -315,7 +315,7 @@
      */
     $.fn.getHoursValue = function () {
         var container = $(this).find(".divTimeSetterContainer");
-        var txtHour = $(container).find("#txtHours");
+        var txtHour = $(container).find(".txtHours");
         if ($.isNumeric(txtHour.val())) {
             return parseInt(txtHour.val());
         }
@@ -327,7 +327,7 @@
      */
     $.fn.getMinutesValue = function () {
         var container = $(this).find(".divTimeSetterContainer");
-        var txtMinute = $(container).find("#txtMinutes");
+        var txtMinute = $(container).find(".txtMinutes");
         if ($.isNumeric(txtMinute.val())) {
             return parseInt(txtMinute.val());
         }
@@ -339,8 +339,8 @@
      */
     $.fn.getTotalMinutes = function () {
         var container = $(this).find(".divTimeSetterContainer");
-        var txtHour = $(container).find("#txtHours");
-        var txtMinute = $(container).find("#txtMinutes");
+        var txtHour = $(container).find(".txtHours");
+        var txtMinute = $(container).find(".txtMinutes");
 
         var hourValue = 0;
         var minuteValue = 0;
@@ -367,7 +367,7 @@
         var container = $(this).find(".divTimeSetterContainer");
         loadOptions(container);
 
-        var txtHours = $(container).find("#txtHours");
+        var txtHours = $(container).find(".txtHours");
         if ($.isNumeric(hourValue)) {
             txtHours.val(hourValue);
         } else {
@@ -386,7 +386,7 @@
         var container = $(this).find(".divTimeSetterContainer");
         loadOptions(container);
 
-        var txtMinute = $(container).find("#txtMinutes");
+        var txtMinute = $(container).find(".txtMinutes");
         if ($.isNumeric(minuteValue)) {
             txtMinute.val(minuteValue);
         } else {
@@ -405,8 +405,8 @@
         var container = $(this).find(".divTimeSetterContainer");
         loadOptions(container);
 
-        var txtHour = $(container).find("#txtHours");
-        var txtMinute = $(container).find("#txtMinutes");
+        var txtHour = $(container).find(".txtHours");
+        var txtMinute = $(container).find(".txtMinutes");
 
         var hourValue = 0;
         var minuteValue = 0;
@@ -509,39 +509,6 @@
     /**
      * plugin UI html template
      */
-    var htmlTemplate = '<div class="divTimeSetterContainer">' + '<div class="timeValueBorder">' + '<input id="txtHours" type="text" class="timePart hours" data-unit="hours" autocomplete="off" />' + '<span class="hourSymbol"></span>' + '<span class="timeDelimiter">:</span>' + '<input id="txtMinutes" type="text" class="timePart minutes" data-unit="minutes" autocomplete="off" />' + '<span class="minuteSymbol"></span>' + '<div class="button-time-control">' + '<div id="btnUp" type="button" data-direction="increment" class="updownButton">' + '<i class="glyphicon glyphicon-triangle-top"></i>' + '</div>' + '<div id="btnDown" type="button" data-direction="decrement" class="updownButton">' + '<i class="glyphicon glyphicon-triangle-bottom"></i>' + '</div>' + '</div>' + '</div>' + '<label class="postfix-position"></label>' + '</div>';
+    var htmlTemplate = '<div class="divTimeSetterContainer">' + '<div class="timeValueBorder">' + '<input type="text" class="timePart hours txtHours" data-unit="hours" autocomplete="off" />' + '<span class="hourSymbol"></span>' + '<span class="timeDelimiter">:</span>' + '<input type="text" class="timePart minutes txtMinutes" data-unit="minutes" autocomplete="off" />' + '<span class="minuteSymbol"></span>' + '<div class="button-time-control">' + '<div type="button" data-direction="increment" class="updownButton btnUp">' + '<i class="glyphicon glyphicon-triangle-top"></i>' + '</div>' + '<div type="button" data-direction="decrement" class="updownButton btnDown">' + '<i class="glyphicon glyphicon-triangle-bottom"></i>' + '</div>' + '</div>' + '</div>' + '<label class="postfix-position"></label>' + '</div>';
 })(jQuery);
-
-/*
-
-On page load call the below code
-
-*/
-
-$(document).ready(function () {
-    var options1 = {
-        hour: {
-            value: 0,
-            min: 0,
-            max: 24,
-            step: 1,
-            symbol: "hrs"
-        },
-        minute: {
-            value: 0,
-            min: 0,
-            max: 60,
-            step: 15,
-            symbol: "mins"
-        },
-        direction: "increment", // increment or decrement
-        inputHourTextbox: null, // hour textbox
-        inputMinuteTextbox: null, // minutes textbox
-        postfixText: "", // text to display after the input fields
-        numberPaddingChar: '0' // number left padding character ex: 00052
-    };
-
-    $(".div1").timesetter(options1).setHour(17);
-    $(".div2").timesetter().setValuesByTotalMinutes(175);
-});
 
