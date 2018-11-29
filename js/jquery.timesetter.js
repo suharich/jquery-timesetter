@@ -41,8 +41,8 @@
         btnUp.unbind('click').bind('click', function (event) { updateTimeValue(this, event); });
         btnDown.unbind('click').bind('click', function (event) { updateTimeValue(this, event); });
 
-        var txtHours = container.find('#txtHours');
-        var txtMinutes = container.find('#txtMinutes');
+        var txtHours = container.find('.txtHours');
+        var txtMinutes = container.find('.txtMinutes');
 
         txtHours.unbind('focusin').bind('focusin', function (event) { $(this).select(); unitChanged(this, event); });
         txtMinutes.unbind('focusin').bind('focusin', function (event) { $(this).select(); unitChanged(this, event); });
@@ -347,7 +347,7 @@
     $.fn.getHoursValue = function ()
     {
         var container = $(this).find(".divTimeSetterContainer");
-        var txtHour = $(container).find("#txtHours");
+        var txtHour = $(container).find(".txtHours");
         if ($.isNumeric(txtHour.val()))
         {
             return parseInt(txtHour.val());
@@ -361,7 +361,7 @@
     $.fn.getMinutesValue = function ()
     {
         var container = $(this).find(".divTimeSetterContainer");
-        var txtMinute = $(container).find("#txtMinutes");
+        var txtMinute = $(container).find(".txtMinutes");
         if ($.isNumeric(txtMinute.val()))
         {
             return parseInt(txtMinute.val());
@@ -375,8 +375,8 @@
     $.fn.getTotalMinutes = function ()
     {
         var container = $(this).find(".divTimeSetterContainer");
-        var txtHour = $(container).find("#txtHours");
-        var txtMinute = $(container).find("#txtMinutes");
+        var txtHour = $(container).find(".txtHours");
+        var txtMinute = $(container).find(".txtMinutes");
 
         var hourValue = 0;
         var minuteValue = 0;
@@ -406,7 +406,7 @@
         var container = $(this).find(".divTimeSetterContainer");
         loadOptions(container);
 
-        var txtHours = $(container).find("#txtHours");
+        var txtHours = $(container).find(".txtHours");
         if ($.isNumeric(hourValue))
         {
             txtHours.val(hourValue);
@@ -429,7 +429,7 @@
         var container = $(this).find(".divTimeSetterContainer");
         loadOptions(container);
 
-        var txtMinute = $(container).find("#txtMinutes");
+        var txtMinute = $(container).find(".txtMinutes");
         if ($.isNumeric(minuteValue))
         {
             txtMinute.val(minuteValue);
@@ -452,8 +452,8 @@
         var container = $(this).find(".divTimeSetterContainer");
         loadOptions(container);
 
-        var txtHour = $(container).find("#txtHours");
-        var txtMinute = $(container).find("#txtMinutes");
+        var txtHour = $(container).find(".txtHours");
+        var txtMinute = $(container).find(".txtMinutes");
 
         var hourValue = 0;
         var minuteValue = 0;
@@ -589,40 +589,5 @@
 	'</div>';
 
 }(jQuery));
-
-/*
-
-On page load call the below code
-
-*/
-
-$(document).ready(function ()
-{
-    var options1 = {
-        hour: {
-            value: 0,
-            min: 0,
-            max: 24,
-            step: 1,
-            symbol: "hrs"
-        },
-        minute: {
-            value: 0,
-            min: 0,
-            max: 60,
-            step: 15,
-            symbol: "mins"
-        },
-        direction: "increment", // increment or decrement
-        inputHourTextbox: null, // hour textbox
-        inputMinuteTextbox: null, // minutes textbox
-        postfixText: "", // text to display after the input fields
-        numberPaddingChar: '0' // number left padding character ex: 00052
-    };
-
-    $(".div1").timesetter(options1).setHour(17);
-    $(".div2").timesetter().setValuesByTotalMinutes(175);
-
-});
 
 

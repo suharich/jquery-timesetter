@@ -6,13 +6,43 @@
     <link href="css/jquery.timesetter.css" rel="stylesheet">
 </head>
 <body>
-    <div class="div1"></div>
-    <div style="clear:both;"></div>
 
-    <div class="div2"></div>
+    <div class="div1"></div>
     <div style="clear:both;"></div>
 
     <script type="text/javascript" src="js/jquery-2.2.4.min.js"></script>
     <script type="text/javascript" src="js/jquery.timesetter.js"></script>
+    <script type="text/javascript">
+        /* On page load call the below code */
+
+        $(document).ready(function () {
+            var options1 = {
+                hour: {
+                    value: 0,
+                    min: 0,
+                    max: 24,
+                    step: 1,
+                    symbol: "hrs"
+                },
+                minute: {
+                    value: 0,
+                    min: 0,
+                    max: 60,
+                    step: 15,
+                    symbol: "mins"
+                },
+                direction: "increment", // increment or decrement
+                inputHourTextbox: null, // hour textbox
+                inputMinuteTextbox: null, // minutes textbox
+                postfixText: "", // text to display after the input fields
+                numberPaddingChar: '0' // number left padding character ex: 00052
+            };
+
+            $(".div1").timesetter(options1).setHour(17);
+            $(".div1").timesetter(options1).setMinute(19);
+
+        });
+    </script>
 </body>
+
 </html>
