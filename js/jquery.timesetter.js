@@ -7,8 +7,12 @@
  * Dependency: 
  *              jQuery-2.2.4.min.js
  *              bootstrap css: https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css
- * 
+ *
+ * initial verions:
  * https://github.com/sandunangelo/jquery-timesetter
+ *
+ * this version (include UI2)
+ * https://github.com/suharich/jquery-timesetter
  */
 
 (function ($) {
