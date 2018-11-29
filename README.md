@@ -3,8 +3,8 @@ jquery-timesetter is a jQuery plugin which generates a UI component useful to ta
 
 The oroginal version has the following UI:
 
-![timesetter original UI](https://github.com/suharich/jquery-timesette/doc/images/timesetter-ver1.png)
+![timesetter original UI](docs/images/timesetter-ver1.png?raw=true "Title")
 
-This version contains second UI waith up/down arrows for each input controls (for hours and minutes)
-![timesetter original second UI](https://github.com/suharich/jquery-timesette/doc/images/timesetter-ver2.png)
+This version contains second UI with up/down arrows for each input controls (for hours and minutes)
+![timesetter original second UI](docs/images/timesetter-ver2.png?raw=true "Title")
  
