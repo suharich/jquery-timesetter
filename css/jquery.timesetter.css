@@ -6,6 +6,10 @@
  * https://github.com/suharich/jquery-timesetter
  */
 @import "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css";
+/**/
+/*
+ * UI ver. 0
+ */
 .divTimeSetterContainer {
   margin: 5px;
   float: left;
@@ -17,14 +21,6 @@
   border: 1px solid #bebebe;
   border-radius: 3px;
   height: 30px;
-}
-.divTimeSetterContainer .timeValueBorder2 {
-  float: left;
-  background-color: #ffffff;
-  border: 1px solid #bebebe;
-  border-radius: 3px;
-  height: 60px;
-  width: 80px;
 }
 .divTimeSetterContainer input.timePart {
   float: left;
@@ -46,32 +42,17 @@
 .divTimeSetterContainer input.minutes {
   width: 18px;
 }
-.divTimeSetterContainer input.minutes1 {
-  width: 25px;
-}
 .divTimeSetterContainer span.hourSymbol,
 .divTimeSetterContainer span.minuteSymbol {
   float: left;
   margin: 6px 2px 0 2px;
   font-size: 0.9em;
 }
-.divTimeSetterContainer span.hourSymbol2,
-.divTimeSetterContainer span.minuteSymbol2 {
-  float: left;
-  margin: 6px 2px 0 2px;
-  font-size: 2.7em;
-}
 .divTimeSetterContainer span.timeDelimiter {
   float: left;
   font-size: 1.2em;
   font-weight: bold;
   margin: 2px 2px 0 2px;
-}
-.divTimeSetterContainer span.timeDelimiter1 {
-  float: left;
-  font-size: 1.2em;
-  font-weight: bold;
-  margin: 2px 12px 0 12px;
 }
 .divTimeSetterContainer .postfix-position {
   position: relative;
@@ -111,7 +92,94 @@
 .divTimeSetterContainer .button-time-control div.updownButton:hover {
   background-color: #bebebe;
 }
-/** UI ver. 2 */
+/*
+ * UI ver. 1
+ */
+.divTimeSetterContainer.ui-ver-1 {
+  margin: 5px;
+  float: left;
+  position: relative;
+}
+.divTimeSetterContainer.ui-ver-1 .timeValueBorder {
+  float: left;
+  background-color: #ffffff;
+  border: 1px solid #bebebe;
+  border-radius: 3px;
+  height: 30px;
+}
+.divTimeSetterContainer.ui-ver-1 input.timePart {
+  float: left;
+  margin-top: 1px;
+  margin-left: 1px;
+  text-align: right;
+  height: 25px;
+  border: none;
+  font-size: 1.05em;
+  font-weight: bold;
+  border-radius: 3px;
+  padding: 0;
+  cursor: text;
+  outline: none;
+}
+.divTimeSetterContainer.ui-ver-1 input.hours {
+  width: 30px;
+}
+.divTimeSetterContainer.ui-ver-1 input.minutes {
+  width: 25px;
+}
+.divTimeSetterContainer.ui-ver-1 span.hourSymbol,
+.divTimeSetterContainer.ui-ver-1 span.minuteSymbol {
+  float: left;
+  margin: 6px 2px 0 2px;
+  font-size: 0.9em;
+}
+.divTimeSetterContainer.ui-ver-1 span.timeDelimiter {
+  float: left;
+  font-size: 1.2em;
+  font-weight: bold;
+  margin: 2px 12px 0 12px;
+}
+.divTimeSetterContainer.ui-ver-1 .postfix-position {
+  position: relative;
+  right: -3px;
+  top: 5px;
+  font-weight: bold;
+}
+.divTimeSetterContainer.ui-ver-1 .button-time-control {
+  width: 20px;
+  float: left;
+  position: relative;
+  right: -2px;
+  top: -1px;
+  cursor: pointer;
+  margin-left: 7px;
+}
+.divTimeSetterContainer.ui-ver-1 .button-time-control div.updownButton {
+  width: 20px;
+  float: left;
+  height: 15px;
+  border: 1px solid #bebebe;
+  text-align: center;
+}
+.divTimeSetterContainer.ui-ver-1 .button-time-control div.updownButton:first-child {
+  border-top-right-radius: 3px;
+  border-bottom: none;
+  /* to remove double line */
+}
+.divTimeSetterContainer.ui-ver-1 .button-time-control div.updownButton:last-child {
+  border-bottom-right-radius: 3px;
+}
+.divTimeSetterContainer.ui-ver-1 .button-time-control div.updownButton i {
+  font-weight: bold;
+  font-size: 0.7em;
+  top: -2px;
+}
+.divTimeSetterContainer.ui-ver-1 .button-time-control div.updownButton:hover {
+  background-color: #bebebe;
+}
+/*
+ * UI ver. 2
+ */
 .divTimeSetterContainer.ui-ver-2 {
   margin-top: 50px;
   float: left;

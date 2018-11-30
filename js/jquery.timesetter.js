@@ -547,7 +547,7 @@
      *  UI template ver 1
      */
     var htmlTemplate_1 =
-        '<div class="divTimeSetterContainer">' +
+        '<div class="divTimeSetterContainer ui-ver-1">' +
         '<div class="timeValueBorder">' +
         '<input type="text" class="timePart hours txtHours" data-unit="hours" autocomplete="off">' +
         '<span class="hourSymbol">hrs</span>' +
@@ -560,9 +560,9 @@
         ' </div>' +
         '</div>' +
         '</div>' +
-        '<span class="timeDelimiter1">&nbsp;</span>' +
+        '<span class="timeDelimiter">&nbsp;</span>' +
         '<div class="timeValueBorder">' +
-        '<input type="text" class="timePart minutes1 txtMinutes" data-unit="minutes" autocomplete="off">' +
+        '<input type="text" class="timePart minutes txtMinutes" data-unit="minutes" autocomplete="off">' +
         '<span class="minuteSymbol">mins</span>' +
         '<div class="button-time-control">' +
         '<div type="button" data-direction="increment" class="updownButton btnUp" data-unit="minutes">' +

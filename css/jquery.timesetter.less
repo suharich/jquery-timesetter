@@ -10,7 +10,10 @@
 
 @white-color: #ffffff;
 @border-color: #bebebe;
-
+/**/
+/*
+ * UI ver. 0
+ */
 .divTimeSetterContainer {
     margin: 5px;
     float: left;
@@ -22,15 +25,6 @@
         border: 1px solid @border-color;
         border-radius: 3px;
         height: 30px;
-    }
-
-    .timeValueBorder2 {
-        float: left;
-        background-color: @white-color;
-        border: 1px solid @border-color;
-        border-radius: 3px;
-        height: 60px;
-        width: 80px;
     }
 
     input.timePart {
@@ -56,20 +50,10 @@
         width: 18px;
     }
 
-    input.minutes1 {
-        width: 25px;
-    }
-
     span.hourSymbol, span.minuteSymbol {
         float: left;
         margin: 6px 2px 0 2px;
         font-size: 0.9em;
-    }
-
-    span.hourSymbol2, span.minuteSymbol2 {
-        float: left;
-        margin: 6px 2px 0 2px;
-        font-size: 2.7em;
     }
 
     span.timeDelimiter {
@@ -79,7 +63,97 @@
         margin: 2px 2px 0 2px;
     }
 
-    span.timeDelimiter1 {
+    .postfix-position {
+        position: relative;
+        right: -3px;
+        top: 5px;
+        font-weight: bold;
+    }
+
+    .button-time-control {
+        width: 20px;
+        float: left;
+        position: relative;
+        right: -2px;
+        top: -1px;
+        cursor: pointer;
+        margin-left: 7px;
+
+        div.updownButton {
+            width: 20px;
+            float: left;
+            height: 15px;
+            border: 1px solid @border-color;
+            text-align: center;
+
+            &:first-child {
+                border-top-right-radius: 3px;
+                border-bottom: none; /* to remove double line */
+            }
+
+            &:last-child {
+                border-bottom-right-radius: 3px;
+            }
+
+            i {
+                font-weight: bold;
+                font-size: 0.7em;
+                top: -2px;
+            }
+        }
+
+        div.updownButton:hover {
+            background-color: @border-color;
+        }
+    }
+}
+
+/*
+ * UI ver. 1
+ */
+.divTimeSetterContainer.ui-ver-1 {
+    margin: 5px;
+    float: left;
+    position: relative;
+
+    .timeValueBorder {
+        float: left;
+        background-color: @white-color;
+        border: 1px solid @border-color;
+        border-radius: 3px;
+        height: 30px;
+    }
+
+    input.timePart {
+        float: left;
+        margin-top: 1px;
+        margin-left: 1px;
+        text-align: right;
+        height: 25px;
+        border: none;
+        font-size: 1.05em;
+        font-weight: bold;
+        border-radius: 3px;
+        padding: 0;
+        cursor: text;
+        outline: none;
+    }
+
+    input.hours {
+        width: 30px;
+    }
+
+    input.minutes {
+        width: 25px;
+    }
+
+    span.hourSymbol, span.minuteSymbol {
+        float: left;
+        margin: 6px 2px 0 2px;
+        font-size: 0.9em;
+    }
+
+    span.timeDelimiter {
         float: left;
         font-size: 1.2em;
         font-weight: bold;
@@ -131,8 +205,9 @@
     }
 }
 
-/** UI ver. 2 */
-
+/*
+ * UI ver. 2
+ */
 .divTimeSetterContainer.ui-ver-2 {
     margin-top: 50px;
     float: left;
