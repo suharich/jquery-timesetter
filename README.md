@@ -7,4 +7,6 @@ The oroginal version has the following UI:
 
 This version contains second UI with up/down arrows for each input controls (for hours and minutes)
 ![timesetter original second UI](docs/images/timesetter-ver2.png?raw=true "Title")
+
+P.S. also fixed small issues with using css .classes as selectors instead of #IDs
  
