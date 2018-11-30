@@ -581,34 +581,34 @@
     var htmlTemplate_2 =
         '<div class="divTimeSetterContainer ui-ver-2">' +
             '<div class="button-time-control">' +
-                '<div type="button" data-direction="increment" class="updownButton2 btnUp" data-unit="hours">' +
+                '<div type="button" data-direction="increment" class="updownButton btnUp" data-unit="hours">' +
                     '<i class="glyphicon glyphicon-triangle-top"></i>' +
                 '</div>' +
             '</div>' +
 
-            '<div class="timeValueBorder2">' +        
-                '<input type="text" class="timePart2 hours2 txtHours" data-unit="hours" autocomplete="off">' +
+            '<div class="timeValueBorder">' +        
+                '<input type="text" class="timePart hours txtHours" data-unit="hours" autocomplete="off">' +
             '</div>' +
 
             '<div class="button-time-control">' +
-                '<div type="button" data-direction="decrement" class="updownButton2 btnDown" data-unit="hours">' +
+                '<div type="button" data-direction="decrement" class="updownButton btnDown" data-unit="hours">' +
                     '<i class="glyphicon glyphicon-triangle-bottom"></i>' +
                 ' </div>' +
             '</div>' +
 
-            '<span class="timeDelimiter2">:</span>' +
+            '<span class="timeDelimiter">:</span>' +
 
             '<div class="button-time-control">' +
-                '<div type="button" data-direction="increment" class="updownButton2 btnUp" data-unit="minutes">' +
+                '<div type="button" data-direction="increment" class="updownButton btnUp" data-unit="minutes">' +
                     '<i class="glyphicon glyphicon-triangle-top"></i>' +
                 '</div>' +
             '</div>' +
 
-            '<div class="timeValueBorder2">' +
-                '<input type="text" class="timePart2 minutes2 txtMinutes" data-unit="minutes" autocomplete="off">' +        
+            '<div class="timeValueBorder">' +
+                '<input type="text" class="timePart minutes txtMinutes" data-unit="minutes" autocomplete="off">' +        
             '</div>' +
             '<div class="button-time-control">' +        
-                '<div type="button" data-direction="decrement" class="updownButton2 btnDown" data-unit="minutes">' +
+                '<div type="button" data-direction="decrement" class="updownButton btnDown" data-unit="minutes">' +
                     '<i class="glyphicon glyphicon-triangle-bottom"></i>' +
                 '</div>' +
             '</div>' +
