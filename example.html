@@ -6,17 +6,19 @@
     <link href="css/jquery.timesetter.css" rel="stylesheet">
 </head>
 <body>
-
-    <div class="div1"></div>
-    <div style="clear:both;"></div>
-
+    <div style="margin-left: 10px;">
+        <h1>UI ver </h1>
+        <div class="div1"></div>
+        <div style="clear:both;"></div>
+    </div>
+   
     <script type="text/javascript" src="js/jquery-2.2.4.min.js"></script>
     <script type="text/javascript" src="js/jquery.timesetter.js"></script>
     <script type="text/javascript">
         /* On page load call the below code */
 
         $(document).ready(function () {
-            var options1 = {
+            var options0 = {
                 hour: {
                     value: 0,
                     min: 0,
@@ -36,12 +38,17 @@
                 inputMinuteTextbox: null, // minutes textbox
                 postfixText: "", // text to display after the input fields
                 numberPaddingChar: '0', // number left padding character ex: 00052
-                ui2: true // use second ui
+                ui_ver: 0  // posible valuse: 0,1,2
             };
 
-            $(".div1").timesetter(options1).setHour(17);
-            $(".div1").timesetter(options1).setMinute(19);
+            /** change parameter for options0.ui_ver from 0, 1 or 2 to update UI **/
+            //options0.ui_ver = 1;
+            options0.ui_ver = 2;
+           
+            $(".div1").timesetter(options0).setHour(11);
+            $(".div1").timesetter(options0).setMinute(00);
 
+            $("h1").text("UI ver." + options0.ui_ver);
         });
     </script>
 </body>

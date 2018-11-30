@@ -31,10 +31,13 @@
         saveOptions(container, options);
 
         if (wrapper.find(".divTimeSetterContainer").length !== 1) {
-            if ($.fn.settings.ui2) {
-                wrapper.html(htmlTemplate2);
-            } else {
-                wrapper.html(htmlTemplate);
+            switch($.fn.settings.ui_ver) {
+                case 1: wrapper.html(htmlTemplate_1);
+                    break;
+                case 2: wrapper.html(htmlTemplate_2);
+                    break;
+                default:
+                    wrapper.html(htmlTemplate_0);
             }
 
         }
@@ -105,7 +108,8 @@
         var container = $(sender).parents(".divTimeSetterContainer");
         loadOptions(container);
 
-        if ($.fn.settings.ui2) {
+        if ($.fn.settings.ui_ver == 1
+            || $.fn.settings.ui_ver == 2) {
             //takes unit for particular buttons
             unit = $(sender).data("unit");
         }
@@ -468,7 +472,6 @@
             inputMinuteTextbox: null, // minutes textbox
             postfixText: "", // text to display after the input fields
             numberPaddingChar: '0', // number left padding character ex: 00052
-            ui2: true
         };
     };
 
@@ -520,7 +523,7 @@
     /**
      * plugin UI html template
      */
-    var htmlTemplate =
+    var htmlTemplate_0 =
         '<div class="divTimeSetterContainer">' +
             '<div class="timeValueBorder">' +
                 '<input type="text" class="timePart hours txtHours" data-unit="hours" autocomplete="off" />' +
@@ -541,9 +544,9 @@
         '</div>';
 
     /**
-     * plugin UI html template
+     *  UI template ver 1
      */
-    var htmlTemplate2 =
+    var htmlTemplate_1 =
         '<div class="divTimeSetterContainer">' +
         '<div class="timeValueBorder">' +
         '<input type="text" class="timePart hours txtHours" data-unit="hours" autocomplete="off">' +
@@ -557,9 +560,9 @@
         ' </div>' +
         '</div>' +
         '</div>' +
-        '<span class="timeDelimiter2">&nbsp;</span>' +
+        '<span class="timeDelimiter1">&nbsp;</span>' +
         '<div class="timeValueBorder">' +
-        '<input type="text" class="timePart minutes2 txtMinutes" data-unit="minutes" autocomplete="off">' +
+        '<input type="text" class="timePart minutes1 txtMinutes" data-unit="minutes" autocomplete="off">' +
         '<span class="minuteSymbol">mins</span>' +
         '<div class="button-time-control">' +
         '<div type="button" data-direction="increment" class="updownButton btnUp" data-unit="minutes">' +
@@ -571,6 +574,45 @@
         '</div>' +
         '</div>' +
         '<label class="postfix-position"></label>' +
+        '</div>';
+    /**
+     * UI template ver 2
+     */
+    var htmlTemplate_2 =
+        '<div class="divTimeSetterContainer ui-ver-2">' +
+            '<div class="button-time-control">' +
+                '<div type="button" data-direction="increment" class="updownButton2 btnUp" data-unit="hours">' +
+                    '<i class="glyphicon glyphicon-triangle-top"></i>' +
+                '</div>' +
+            '</div>' +
+
+            '<div class="timeValueBorder2">' +        
+                '<input type="text" class="timePart2 hours2 txtHours" data-unit="hours" autocomplete="off">' +
+            '</div>' +
+
+            '<div class="button-time-control">' +
+                '<div type="button" data-direction="decrement" class="updownButton2 btnDown" data-unit="hours">' +
+                    '<i class="glyphicon glyphicon-triangle-bottom"></i>' +
+                ' </div>' +
+            '</div>' +
+
+            '<span class="timeDelimiter2">:</span>' +
+
+            '<div class="button-time-control">' +
+                '<div type="button" data-direction="increment" class="updownButton2 btnUp" data-unit="minutes">' +
+                    '<i class="glyphicon glyphicon-triangle-top"></i>' +
+                '</div>' +
+            '</div>' +
+
+            '<div class="timeValueBorder2">' +
+                '<input type="text" class="timePart2 minutes2 txtMinutes" data-unit="minutes" autocomplete="off">' +        
+            '</div>' +
+            '<div class="button-time-control">' +        
+                '<div type="button" data-direction="decrement" class="updownButton2 btnDown" data-unit="minutes">' +
+                    '<i class="glyphicon glyphicon-triangle-bottom"></i>' +
+                '</div>' +
+            '</div>' +
+            '<label class="postfix-position"></label>' +
         '</div>';
 
 }(jQuery));
