@@ -584,31 +584,27 @@
                 '<div type="button" data-direction="increment" class="updownButton btnUp" data-unit="hours">' +
                     '<i class="glyphicon glyphicon-triangle-top"></i>' +
                 '</div>' +
+                '<div type="button" data-direction="increment" class="updownButton btnUp btnUp2" data-unit="minutes">' +
+                    '<i class="glyphicon glyphicon-triangle-top"></i>' +
+                '</div>' +
             '</div>' +
 
+        '<div class="timeSetterValues">' +
             '<div class="timeValueBorder">' +        
                 '<input type="text" class="timePart hours txtHours" data-unit="hours" autocomplete="off">' +
+        '</div>' +
+        '<span class="timeDelimiter">:</span>' +
+           
+            '<div class="timeValueBorder">' +
+                '<input type="text" class="timePart minutes txtMinutes" data-unit="minutes" autocomplete="off">' +
             '</div>' +
+        '</div>' +
 
             '<div class="button-time-control">' +
                 '<div type="button" data-direction="decrement" class="updownButton btnDown" data-unit="hours">' +
                     '<i class="glyphicon glyphicon-triangle-bottom"></i>' +
                 ' </div>' +
-            '</div>' +
-
-            '<span class="timeDelimiter">:</span>' +
-
-            '<div class="button-time-control">' +
-                '<div type="button" data-direction="increment" class="updownButton btnUp" data-unit="minutes">' +
-                    '<i class="glyphicon glyphicon-triangle-top"></i>' +
-                '</div>' +
-            '</div>' +
-
-            '<div class="timeValueBorder">' +
-                '<input type="text" class="timePart minutes txtMinutes" data-unit="minutes" autocomplete="off">' +        
-            '</div>' +
-            '<div class="button-time-control">' +        
-                '<div type="button" data-direction="decrement" class="updownButton btnDown" data-unit="minutes">' +
+                '<div type="button" data-direction="decrement" class="updownButton btnDown btnDown2" data-unit="minutes">' +
                     '<i class="glyphicon glyphicon-triangle-bottom"></i>' +
                 '</div>' +
             '</div>' +

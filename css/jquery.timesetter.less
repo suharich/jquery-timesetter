@@ -209,47 +209,50 @@
  * UI ver. 2
  */
 .divTimeSetterContainer.ui-ver-2 {
-   
     float: left;
     position: relative;
 
-    .timeValueBorder {
-        float: left;
-        background-color: @white-color;
-        border: 1px solid @border-color;
-        border-radius: 3px;
-        height: 40px;
-        width: 40px;
-    }
+    .timeSetterValues {
+        display: inline-flex;
 
-    input.timePart {
-        float: left;
-        margin-top: 1px;
-        margin-left: 4px;
-        text-align: right;
-        height: 37px;
-        border: none;
-        font-size: 1.95em;
-        font-weight: bold;
-        border-radius: 3px;
-        padding: 0;
-        cursor: text;
-        outline: none;
-    }
+        .timeValueBorder {
+            float: left;
+            background-color: @white-color;
+            border: 1px solid @border-color;
+            border-radius: 3px;
+            height: 40px;
+            width: 40px;
+        }
 
-    input.hours {
-        width: 30px;
-    }
+        input.timePart {
+            float: left;
+            margin-top: 1px;
+            margin-left: 4px;
+            text-align: right;
+            height: 37px;
+            border: none;
+            font-size: 1.95em;
+            font-weight: bold;
+            border-radius: 3px;
+            padding: 0;
+            cursor: text;
+            outline: none;
+        }
 
-    input.minutes {
-        width: 30px;
-    }
+        input.hours {
+            width: 30px;
+        }
 
-    span.timeDelimiter {
-        float: left;
-        font-size: 2.2em;
-        font-weight: bold;
-        margin: -5px 12px 0 12px;
+        input.minutes {
+            width: 30px;
+        }
+
+        .timeDelimiter {
+            float: left;
+            font-size: 2.2em;
+            font-weight: bold;
+            margin: -5px 12px 0 12px;
+        }
     }
 
     .postfix-position {
@@ -258,6 +261,7 @@
         top: 5px;
         font-weight: bold;
     }
+
 
     .button-time-control {
         width: 20px;
@@ -268,6 +272,7 @@
         cursor: pointer;
         margin-left: 7px;
         border: none;
+        display: inline;
 
         div.updownButton {
             float: left;
@@ -279,13 +284,24 @@
             padding: 8px 6px;
             border: none;
 
+            &:hover {
+                background-color: transparent;
+            }
+
             &.btnUp {
-                top: -44px;
+                top: -54px;
+            }
+
+            &.btnUp2 {
+                left: 70px;
             }
 
             &.btnDown {
-                top: 53px;
-                left: -45px;
+                top: 63px;
+            }
+
+            &.btnDown2 {
+                left: 70px;
             }
 
             & i {
@@ -294,10 +310,10 @@
                 top: -10px;
                 left: -10px;
             }
-        }
 
-        div.updownButton.i:hover {
-            background-color: @border-color;
+            i:hover {
+                color: #06c;
+            }
         }
     }
 }
@@ -305,97 +321,117 @@
 /*
  * UI ver. 2 small (view-lt480)
  */
-.view-lt480 .divTimeSetterContainer.ui-ver-2 {
-    float: left;
-    position: relative;
-
-    .timeValueBorder {
-        float: left;
-        background-color: @white-color;
-        border: 1px solid @border-color;
-        border-radius: 3px;
-        height: 32px;
-        width: 32px;
-    }
-
-    input.timePart {
-        float: left;
-        margin-top: 1px;
-        margin-left: 4px;
-        text-align: right;
-        height: 28px;
-        border: none;
-        font-size: 14px;
-        font-weight: bold;
-        border-radius: 3px;
-        padding: 0;
-        cursor: text;
-        outline: none;
-    }
-
-    input.hours {
-        width: 20px;
-    }
-
-    input.minutes {
-        width: 20px;
-    }
-
-    span.timeDelimiter {
-        float: left;
-        font-size: 0em;
-        font-weight: bold;
-        margin: 0px 0px 2px 2px;
-    }
-
-    .postfix-position {
-        position: relative;
-        right: -3px;
-        top: 5px;
-        font-weight: bold;
-    }
-
-    .button-time-control {
-        width: 20px;
+@media(max-width: 480px) {
+    .divTimeSetterContainer.ui-ver-2 {
         float: left;
         position: relative;
-        right: -2px;
-        top: -1px;
-        cursor: pointer;
-        margin-left: 7px;
-        border: none;
 
-        div.updownButton {
-            float: left;
-            text-align: center;
-            position: absolute;
-            left: -4px;
-            width: 30px;
-            height: 30px;
-            padding: 8px 6px;
-            border: none;
+        .timeSetterValues {
+            display: inline-flex;
 
-            &.btnUp {
-                top: -44px;
-                left: -7px;
+
+            .timeValueBorder {
+                float: left;
+                background-color: @white-color;
+                border: 1px solid @border-color;
+                border-radius: 3px;
+                height: 32px;
+                width: 32px;
             }
 
-            &.btnDown {
-                top: 52px;
-                left: -42px;
-            }
-
-            & i {
+            input.timePart {
+                float: left;
+                margin-top: 1px;
+                margin-left: 4px;
+                text-align: right;
+                height: 28px;
+                border: none;
+                font-size: 14px;
                 font-weight: bold;
-                font-size: 1.0em;
-                top: 0px;
-                left: 0px;
+                border-radius: 3px;
+                padding: 0;
+                cursor: text;
+                outline: none;
+            }
+
+            input.hours {
+                width: 20px;
+            }
+
+            input.minutes {
+                width: 20px;
+            }
+
+            span.timeDelimiter {
+                float: left;
+                font-size: 0em;
+                font-weight: bold;
+                margin: 0px 0px 2px 2px;
             }
         }
 
-        div.updownButton.i:hover {
-            background-color: @border-color;
+        .postfix-position {
+            position: relative;
+            right: -3px;
+            top: 5px;
+            font-weight: bold;
+        }
+
+        .button-time-control {
+            width: 20px;
+            float: left;
+            position: relative;
+            right: -2px;
+            top: -1px;
+            cursor: pointer;
+            margin-left: 7px;
+            border: none;
+            display: inline;
+
+            div.updownButton {
+                float: left;
+                text-align: center;
+                position: absolute;
+                left: -4px;
+                width: 30px;
+                height: 30px;
+                padding: 8px 6px;
+                border: none;
+
+                &:hover {
+                    background-color: transparent;
+                }
+
+                &.btnUp {
+                    top: -44px;
+                    left: -7px;
+                }
+
+                &.btnUp2 {
+                    left: 27px;
+                }
+
+                &.btnDown {
+                    top: 48px;
+                    left: -10px;
+                }
+
+                &.btnDown2 {
+                    left: 24px;
+                }
+
+                & i {
+                    font-weight: bold;
+                    font-size: 1.0em;
+                    top: 0px;
+                    left: 0px;
+                }
+
+                i:hover {
+                    color: #06c;
+                }
+            }
         }
     }
-}
+    }
 
